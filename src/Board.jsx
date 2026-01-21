@@ -1,69 +1,33 @@
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
+import React, { useState } from "react";
+import { initialGameBoard, WINNING_COMBINATIONS } from "./data/gameArrays";
 
-const WINNING_COMBINATIONS = [
-  [
-    { row: 0, col: 0 },
-    { row: 0, col: 1 },
-    { row: 0, col: 2 },
-  ],
-  [
-    { row: 1, col: 0 },
-    { row: 1, col: 1 },
-    { row: 1, col: 2 },
-  ],
-  [
-    { row: 2, col: 0 },
-    { row: 2, col: 1 },
-    { row: 2, col: 2 },
-  ],
-  [
-    { row: 0, col: 0 },
-    { row: 1, col: 0 },
-    { row: 2, col: 0 },
-  ],
-  [
-    { row: 0, col: 1 },
-    { row: 1, col: 1 },
-    { row: 2, col: 1 },
-  ],
-  [
-    { row: 0, col: 2 },
-    { row: 1, col: 2 },
-    { row: 2, col: 2 },
-  ],
-  [
-    { row: 0, col: 0 },
-    { row: 1, col: 1 },
-    { row: 2, col: 2 },
-  ],
-  [
-    { row: 0, col: 2 },
-    { row: 1, col: 1 },
-    { row: 2, col: 0 },
-  ],
-];
-
-import React from "react";
-
-const Board = () => {
+const Board = ({ players }) => {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
   const activePlayer = () => {
-    let xCols = 0;
-    let oCols = 0;
+    // let xCols = 0;
+    // let oCols = 0;
+
+    // for (let row of gameBoard) {
+    //   for (let col of row) {
+    //     if (col === "X") xCols++;
+    //     if (col === "0") oCols++;
+    //   }
+    // }
+
+    // return xCols === oCols ? "X" : "0";
+
+    let player1Cols = 0;
+    let player2Cols = 0;
 
     for (let row of gameBoard) {
       for (let col of row) {
-        if (col === "X") xCols++;
-        if (col === "0") oCols++;
+        if (col === players.player1.symbol) player1Cols++;
+        if (col === players.player2.symbol) player2Cols++;
       }
     }
 
-    return xCols === oCols ? "X" : "0";
+    return player1Cols === player2Cols ? "X" : "0";
   };
 
   const buttonHandler = (rowIndex, colIndex) => {
@@ -87,19 +51,25 @@ const Board = () => {
   }
 
   return (
-    <div className="h-96 w-96 bg-red-200 grid grid-flow-row grid-cols-3 gap-2">
-      {gameBoard.map((row, rowIndex) =>
-        row.map((col, colIndex) => (
-          <button
-            className="bg-red-400 cursor-pointer"
-            key={colIndex}
-            onClick={() => buttonHandler(rowIndex, colIndex)}
-          >
-            {col}
-          </button>
-        ))
-      )}
-    </div>
+    <>
+      <div>
+        {players.player1.name}
+        {players.player2.name}
+      </div>
+      <div className="h-96 w-96 bg-red-200 grid grid-flow-row grid-cols-3 gap-2">
+        {gameBoard.map((row, rowIndex) =>
+          row.map((col, colIndex) => (
+            <button
+              className="bg-red-400 cursor-pointer"
+              key={colIndex}
+              onClick={() => buttonHandler(rowIndex, colIndex)}
+            >
+              {col}
+            </button>
+          )),
+        )}
+      </div>
+    </>
   );
 };
 
