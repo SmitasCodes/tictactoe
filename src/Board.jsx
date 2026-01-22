@@ -21,6 +21,7 @@ const Board = ({ players }) => {
   };
 
   const buttonHandler = (rowIndex, colIndex) => {
+    if (gameBoard[rowIndex][colIndex]) return;
     setGameBoard((prevGameBoard) => {
       let updatedGameBoard = [...prevGameBoard];
       const updatedRow = [...prevGameBoard[rowIndex]];
@@ -43,17 +44,17 @@ const Board = ({ players }) => {
   return (
     <div className="flex flex-col">
       <ul className="flex justify-around pb-2">
-        <li className="bg-yellow-400 rounded-sm px-2 py-0.5 flex gap-2">
+        <li
+          className={`${player1Symbol === activePlayer() ? "bg-amber-600" : "bg-yellow-400"} rounded-sm px-2 py-0.5 flex gap-2`}
+        >
           <span>{players.player1.name}</span>
-          <span className="bg-blue-900 px-1.5 rounded-lg">
-            {players.player1.symbol}
-          </span>
+          <span className="bg-blue-900 px-1.5 rounded-lg">{player1Symbol}</span>
         </li>
-        <li className="bg-yellow-400 rounded-sm px-2 py-0.5 flex gap-2">
+        <li
+          className={`${player2Symbol === activePlayer() ? "bg-amber-600" : "bg-yellow-400"} rounded-sm px-2 py-0.5 flex gap-2`}
+        >
           <span>{players.player2.name}</span>
-          <span className="bg-blue-900 px-1.5 rounded-lg">
-            {players.player2.symbol}
-          </span>
+          <span className="bg-blue-900 px-1.5 rounded-lg">{player2Symbol}</span>
         </li>
       </ul>
       <div className="h-96 w-96 bg-red-200 grid grid-flow-row grid-cols-3 gap-2">
@@ -68,6 +69,14 @@ const Board = ({ players }) => {
             </button>
           )),
         )}
+      </div>
+
+      <div className="bg-yellow-400 text-center flex justify-center flex-wrap py-3">
+        <h2 className="font-bold pb-2">Winner is winnner</h2>
+        <div className="flex justify-around w-full">
+          <button className="bg-amber-600 px-2 rounded-xl">Play again</button>
+          <button  className="bg-amber-600 px-2 rounded-xl">Customize</button>
+        </div>
       </div>
     </div>
   );
