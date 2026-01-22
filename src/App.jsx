@@ -10,7 +10,7 @@ const App = () => {
   });
 
   return (
-    <>
+    <div className="flex items-center justify-center h-screen bg-gray-800">
       {!gameStart ? (
         <PlayerSetup
           players={players}
@@ -20,7 +20,7 @@ const App = () => {
       ) : (
         <Board players={players} />
       )}
-    </>
+    </div>
   );
 };
 
