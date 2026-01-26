@@ -5,27 +5,20 @@ const Board = ({ players }) => {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
   const player1Symbol = players.player1.symbol;
   const player2Symbol = players.player2.symbol;
+  const player1Name = players.player1.name;
+  const player2Name = players.player2.name;
+  let winner = "";
 
-  const activePlayer = () => {
-    let player1Cols = 0;
-    let player2Cols = 0;
-
-    for (let row of gameBoard) {
-      for (let col of row) {
-        if (col === player1Symbol) player1Cols++;
-        if (col === player2Symbol) player2Cols++;
-      }
-    }
-
-    return player1Cols === player2Cols ? player1Symbol : player2Symbol;
-  };
+  const moves = gameBoard.flat().filter(Boolean).length;
+  const activePlayer = moves % 2 === 0 ? player1Symbol : player2Symbol;
 
   const buttonHandler = (rowIndex, colIndex) => {
+    if (winner) return;
     if (gameBoard[rowIndex][colIndex]) return;
     setGameBoard((prevGameBoard) => {
       let updatedGameBoard = [...prevGameBoard];
       const updatedRow = [...prevGameBoard[rowIndex]];
-      updatedRow[colIndex] = activePlayer();
+      updatedRow[colIndex] = activePlayer;
       updatedGameBoard[rowIndex] = updatedRow;
       return updatedGameBoard;
     });
@@ -37,7 +30,7 @@ const Board = ({ players }) => {
     const third = gameBoard[combination[2].row][combination[2].col];
 
     if (first && first === second && second === third) {
-      console.log("chicken dinner");
+      first === player1Symbol ? (winner = player1Name) : (winner = player2Name);
     }
   }
 
@@ -45,15 +38,15 @@ const Board = ({ players }) => {
     <div className="flex flex-col">
       <ul className="flex justify-around pb-2">
         <li
-          className={`${player1Symbol === activePlayer() ? "bg-amber-600" : "bg-yellow-400"} rounded-sm px-2 py-0.5 flex gap-2`}
+          className={`${player1Symbol === activePlayer ? "bg-amber-600" : "bg-yellow-400"} rounded-sm px-2 py-0.5 flex gap-2`}
         >
-          <span>{players.player1.name}</span>
+          <span>{player1Name}</span>
           <span className="bg-blue-900 px-1.5 rounded-lg">{player1Symbol}</span>
         </li>
         <li
-          className={`${player2Symbol === activePlayer() ? "bg-amber-600" : "bg-yellow-400"} rounded-sm px-2 py-0.5 flex gap-2`}
+          className={`${player2Symbol === activePlayer ? "bg-amber-600" : "bg-yellow-400"} rounded-sm px-2 py-0.5 flex gap-2`}
         >
-          <span>{players.player2.name}</span>
+          <span>{player2Name}</span>
           <span className="bg-blue-900 px-1.5 rounded-lg">{player2Symbol}</span>
         </li>
       </ul>
@@ -62,7 +55,7 @@ const Board = ({ players }) => {
           row.map((col, colIndex) => (
             <button
               className="bg-red-400 cursor-pointer"
-              key={colIndex}
+              key={`${rowIndex}-${colIndex}`}
               onClick={() => buttonHandler(rowIndex, colIndex)}
             >
               {col}
@@ -72,10 +65,10 @@ const Board = ({ players }) => {
       </div>
 
       <div className="bg-yellow-400 text-center flex justify-center flex-wrap py-3">
-        <h2 className="font-bold pb-2">Winner is winnner</h2>
+        <h2 className="font-bold pb-2">Winner is {winner}</h2>
         <div className="flex justify-around w-full">
           <button className="bg-amber-600 px-2 rounded-xl">Play again</button>
-          <button  className="bg-amber-600 px-2 rounded-xl">Customize</button>
+          <button className="bg-amber-600 px-2 rounded-xl">Customize</button>
         </div>
       </div>
     </div>
