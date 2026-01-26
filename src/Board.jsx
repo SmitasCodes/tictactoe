@@ -64,13 +64,21 @@ const Board = ({ players }) => {
         )}
       </div>
 
-      <div className="bg-yellow-400 text-center flex justify-center flex-wrap py-3">
-        <h2 className="font-bold pb-2">Winner is {winner}</h2>
-        <div className="flex justify-around w-full">
-          <button className="bg-amber-600 px-2 rounded-xl">Play again</button>
-          <button className="bg-amber-600 px-2 rounded-xl">Customize</button>
+      {winner && (
+        <div className="absolute h-screen w-full bg-gray-900/90 top-0 left-0  flex justify-center items-center">
+          <div className="bg-yellow-400 text-center flex-wrap w-102 p-6 rounded-md">
+            <h2 className="font-bold pb-3 text-3xl">Winner is {winner}</h2>
+            <div className="flex justify-around w-full">
+              <button className="bg-amber-600 px-2 rounded-xl text-lg cursor-pointer">
+                Play again
+              </button>
+              <button className="bg-amber-600 px-2 rounded-xl text-lg cursor-pointer">
+                Customize
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
