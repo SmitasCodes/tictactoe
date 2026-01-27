@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { initialGameBoard, WINNING_COMBINATIONS } from "./data/gameArrays";
 
-const Board = ({ players }) => {
+const Board = ({ players, setGameStart }) => {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
-  const player1Symbol = players.player1.symbol;
-  const player2Symbol = players.player2.symbol;
-  const player1Name = players.player1.name;
-  const player2Name = players.player2.name;
+  const {
+    player1: { name: player1Name, symbol: player1Symbol },
+    player2: { name: player2Name, symbol: player2Symbol },
+  } = players;
+
   let winner = "";
 
   const moves = gameBoard.flat().filter(Boolean).length;
@@ -65,14 +66,20 @@ const Board = ({ players }) => {
       </div>
 
       {winner && (
-        <div className="absolute h-screen w-full bg-gray-900/90 top-0 left-0  flex justify-center items-center">
+        <div className="absolute bg-gray-900/90 inset-0 flex justify-center items-center">
           <div className="bg-yellow-400 text-center flex-wrap w-102 p-6 rounded-md">
             <h2 className="font-bold pb-3 text-3xl">Winner is {winner}</h2>
             <div className="flex justify-around w-full">
-              <button className="bg-amber-600 px-2 rounded-xl text-lg cursor-pointer">
+              <button
+                className="bg-amber-600 px-2 rounded-xl text-lg cursor-pointer"
+                onClick={() => setGameBoard(initialGameBoard)}
+              >
                 Play again
               </button>
-              <button className="bg-amber-600 px-2 rounded-xl text-lg cursor-pointer">
+              <button
+                className="bg-amber-600 px-2 rounded-xl text-lg cursor-pointer"
+                onClick={() => setGameStart(false)}
+              >
                 Customize
               </button>
             </div>

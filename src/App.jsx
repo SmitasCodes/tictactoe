@@ -18,7 +18,7 @@ const App = () => {
           setGameStart={setGameStart}
         />
       ) : (
-        <Board players={players} />
+        <Board players={players} setGameStart={setGameStart} />
       )}
     </div>
   );
