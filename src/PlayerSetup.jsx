@@ -25,16 +25,26 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
     });
   };
 
-  const handleEdit = (player) => {
-    if (player == isEditing) {
-      // Basically a block in which player name gets saved
+  const inputsValidation = () => {
+    const playersName = ["player1", "player2"];
+
+    for (let player of playersName) {
       if (players[player].name.length <= 3) {
         setError("Player name must be longer than 3 characters");
-        return;
-      } else if (players[player].name.length >= 20) {
-        setError("Player name cannot be longer than 20 characters");
-        return;
+        return false;
       }
+      if (players[player].name.length >= 20) {
+        setError("Player name cannot be longer than 20 characters");
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const handleEdit = (player) => {
+    if (player == isEditing) {
+      if (!inputsValidation()) return;
       setIsEditing(null);
     } else {
       // Triggers on each edit click, checks if user name is valid before clicking another player to edit. If not valid, reverts name to original
@@ -118,7 +128,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
       <div className="flex justify-center pt-2">
         <button
           className="bg-amber-500 px-4 py-0.5 text-lg rounded-3xl cursor-pointer"
-          onClick={() => setGameStart(true)}
+          onClick={() => inputsValidation() && setGameStart(true)}
         >
           Start
         </button>

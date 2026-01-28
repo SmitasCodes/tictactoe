@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { initialGameBoard, WINNING_COMBINATIONS } from "./data/gameArrays";
 
 const Board = ({ players, setGameStart }) => {
@@ -8,10 +8,26 @@ const Board = ({ players, setGameStart }) => {
     player2: { name: player2Name, symbol: player2Symbol },
   } = players;
 
-  let winner = "";
+  const winner = useMemo(() => {
+    for (const combination of WINNING_COMBINATIONS) {
+      const a = gameBoard[combination[0].row][combination[0].col];
+      const b = gameBoard[combination[1].row][combination[1].col];
+      const c = gameBoard[combination[2].row][combination[2].col];
+
+      if (a && a === b && b === c) {
+        return a === player1Symbol ? player1Name : player2Name;
+      }
+    }
+
+    return null;
+  }, [gameBoard]);
 
   const moves = gameBoard.flat().filter(Boolean).length;
-  const activePlayer = moves % 2 === 0 ? player1Symbol : player2Symbol;
+  const activePlayer = winner
+    ? null
+    : moves % 2 === 0
+      ? player1Symbol
+      : player2Symbol;
 
   const buttonHandler = (rowIndex, colIndex) => {
     if (winner) return;
@@ -24,16 +40,6 @@ const Board = ({ players, setGameStart }) => {
       return updatedGameBoard;
     });
   };
-
-  for (const combination of WINNING_COMBINATIONS) {
-    const first = gameBoard[combination[0].row][combination[0].col];
-    const second = gameBoard[combination[1].row][combination[1].col];
-    const third = gameBoard[combination[2].row][combination[2].col];
-
-    if (first && first === second && second === third) {
-      first === player1Symbol ? (winner = player1Name) : (winner = player2Name);
-    }
-  }
 
   return (
     <div className="flex flex-col">
