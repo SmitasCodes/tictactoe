@@ -63,9 +63,9 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
   };
 
   return (
-    <div className="bg-yellow-200 w-96 p-4 rounded-sm">
+    <div className="bg-[#FFDB00] w-96 p-4 rounded-sm">
       <h2 className="text-xl font-bold text-center pb-4">
-        Welcome to tic tac toe game. You can press start below!
+        Welcome to tic tac toe game!
       </h2>
 
       <div className="flex justify-between pb-2">
@@ -80,7 +80,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
         />
 
         <button
-          className="bg-yellow-600 py-0.5 px-2 rounded-lg cursor-pointer"
+          className="bg-[#d17a07] py-0.5 px-2 rounded-lg cursor-pointer"
           onClick={() => {
             updatePlayer("symbol", "player1", players.player1.symbol);
           }}
@@ -89,7 +89,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
         </button>
 
         <button
-          className="bg-amber-400 px-2 rounded-xl cursor-pointer"
+          className="bg-[#FF8F00] px-2 rounded-xl cursor-pointer"
           onClick={() => handleEdit("player1")}
         >
           {isEditing === "player1" ? "Save" : "Edit"}
@@ -107,7 +107,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
           onChange={(e) => updatePlayer("name", "player2", e.target.value)}
         />
         <button
-          className="bg-yellow-600 py-0.5 px-2 rounded-lg  cursor-pointer"
+          className="bg-[#d17a07] py-0.5 px-2 rounded-lg  cursor-pointer"
           onClick={() => {
             updatePlayer("symbol", "player2", players.player2.symbol);
           }}
@@ -116,7 +116,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
         </button>
 
         <button
-          className="bg-amber-400 px-2 rounded-xl cursor-pointer"
+          className="bg-[#FF8F00] px-2 rounded-xl cursor-pointer"
           onClick={() => handleEdit("player2")}
         >
           {isEditing === "player2" ? "Save" : "Edit"}
