@@ -63,7 +63,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
   };
 
   return (
-    <div className="bg-[#FFDB00] w-96 p-4 rounded-sm">
+    <div className="bg-[#AF47D2] w-96 p-4 rounded-sm">
       <h2 className="text-xl font-bold text-center pb-4">
         Welcome to tic tac toe game!
       </h2>
@@ -89,7 +89,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
         </button>
 
         <button
-          className="bg-[#FF8F00] px-2 rounded-xl cursor-pointer"
+          className="bg-[#FFDB00] px-2 rounded-xl cursor-pointer"
           onClick={() => handleEdit("player1")}
         >
           {isEditing === "player1" ? "Save" : "Edit"}
@@ -116,7 +116,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
         </button>
 
         <button
-          className="bg-[#FF8F00] px-2 rounded-xl cursor-pointer"
+          className="bg-[#FFDB00] px-2 rounded-xl cursor-pointer"
           onClick={() => handleEdit("player2")}
         >
           {isEditing === "player2" ? "Save" : "Edit"}
