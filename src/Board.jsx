@@ -11,7 +11,6 @@ const Board = ({ players, setGameStart }) => {
   const moves = gameBoard.flat().filter(Boolean).length;
 
   const winner = useMemo(() => {
-    if (moves === 9) return "draw";
     for (const combination of WINNING_COMBINATIONS) {
       const a = gameBoard[combination[0].row][combination[0].col];
       const b = gameBoard[combination[1].row][combination[1].col];
@@ -23,6 +22,8 @@ const Board = ({ players, setGameStart }) => {
           : { name: player2Name, symbol: player2Symbol };
       }
     }
+
+    if (moves === 9) return { name: "draw", symbol: null };
 
     return null;
   }, [gameBoard]);
@@ -80,9 +81,7 @@ const Board = ({ players, setGameStart }) => {
         )}
       </div>
 
-      {/* ${col ? "bg-[#e68100]" : "bg-[#ff8f00]"} */}
-
-      {/* {winner && (
+      {winner && (
         <div className="absolute bg-gray-900/90 inset-0 flex justify-center items-center">
           <div className="bg-[#AF47D2] text-center flex-wrap w-102 p-6 rounded-md">
             <h2 className="font-bold pb-3 text-3xl">
@@ -90,13 +89,13 @@ const Board = ({ players, setGameStart }) => {
             </h2>
             <div className="flex justify-around w-full">
               <button
-                className="bg-[#FFDB00] px-2 rounded-xl text-lg cursor-pointer"
+                className="bg-[#FFDB00] hover:bg-[#e6c500] px-2 rounded-xl text-lg cursor-pointer"
                 onClick={() => setGameBoard(initialGameBoard)}
               >
                 Play again
               </button>
               <button
-                className="bg-[#FFDB00] px-2 rounded-xl text-lg cursor-pointer"
+                className="bg-[#FFDB00] hover:bg-[#e6c500] px-2 rounded-xl text-lg cursor-pointer"
                 onClick={() => setGameStart(false)}
               >
                 Customize
@@ -104,7 +103,7 @@ const Board = ({ players, setGameStart }) => {
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 };

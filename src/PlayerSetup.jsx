@@ -29,12 +29,12 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
     const playersName = ["player1", "player2"];
 
     for (let player of playersName) {
-      if (players[player].name.length <= 3) {
-        setError("Player name must be longer than 3 characters");
+      if (players[player].name.length < 3) {
+        setError("Name too short (min 3 char).");
         return false;
       }
-      if (players[player].name.length >= 20) {
-        setError("Player name cannot be longer than 20 characters");
+      if (players[player].name.length > 20) {
+        setError("Name too long (max 20 char).");
         return false;
       }
     }
@@ -63,8 +63,8 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
   };
 
   return (
-    <div className="bg-[#AF47D2] w-96 p-4 rounded-sm">
-      <h2 className="text-xl font-bold text-center pb-4">
+    <div className="bg-[#AF47D2] px-6 py-3 rounded-sm">
+      <h2 className="text-2xl font-bold text-center pb-4">
         Welcome to tic tac toe game!
       </h2>
 
@@ -74,22 +74,20 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
           value={players.player1.name}
           disabled={isEditing !== "player1"}
           onChange={(e) => updatePlayer("name", "player1", e.target.value)}
-          className={`rounded-md border-2 border-transparent outline-none px-0.5
-              ${isEditing === "player1" && " border-yellow-800"}
+          className={`rounded-md border-2 border-transparent outline-none px-0.5 
+              ${isEditing === "player1" && "border-[#cc7200]!"}
             `}
         />
-
         <button
-          className="bg-[#d17a07] py-0.5 px-2 rounded-lg cursor-pointer"
+          className="bg-[#d17a07] hover:bg-[#bc6e06] py-0.5 px-2 rounded-lg cursor-pointer"
           onClick={() => {
             updatePlayer("symbol", "player1", players.player1.symbol);
           }}
         >
           {players.player1.symbol}
         </button>
-
         <button
-          className="bg-[#FFDB00] px-2 rounded-xl cursor-pointer"
+          className={`${isEditing === "player1" ? "bg-[#b39900]" : "bg-[#ffdb00]"} hover:bg-[#e6c500] px-2 rounded-xl cursor-pointer w-12 `}
           onClick={() => handleEdit("player1")}
         >
           {isEditing === "player1" ? "Save" : "Edit"}
@@ -101,33 +99,34 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
           type="text"
           value={players.player2.name}
           disabled={isEditing !== "player2"}
-          className={`rounded-md border-2 border-transparent outline-none px-0.5
-              ${isEditing === "player2" && " border-yellow-800"}
-            `}
+          className={`rounded-md border-2 border-transparent outline-none px-0.5 
+              ${isEditing === "player2" && "border-[#cc7200]!"}
+             `}
           onChange={(e) => updatePlayer("name", "player2", e.target.value)}
         />
         <button
-          className="bg-[#d17a07] py-0.5 px-2 rounded-lg  cursor-pointer"
+          className="bg-[#d17a07] hover:bg-[#bc6e06] py-0.5 px-2 rounded-lg  cursor-pointer"
           onClick={() => {
             updatePlayer("symbol", "player2", players.player2.symbol);
           }}
         >
           {players.player2.symbol}
         </button>
-
         <button
-          className="bg-[#FFDB00] px-2 rounded-xl cursor-pointer"
+          className={`${isEditing === "player2" ? "bg-[#b39900]" : "bg-[#ffdb00]"} hover:bg-[#e6c500] px-2 rounded-xl cursor-pointer  w-12`}
           onClick={() => handleEdit("player2")}
         >
           {isEditing === "player2" ? "Save" : "Edit"}
         </button>
       </div>
 
-      {error && <p className="text-red-700">{error}</p>}
+      {error && (
+        <p className="text-red-700 max-w-[300px] wrap-break-words">{error}</p>
+      )}
 
       <div className="flex justify-center pt-2">
         <button
-          className="bg-amber-500 px-4 py-0.5 text-lg rounded-3xl cursor-pointer"
+          className="bg-[#ff8f00] hover:bg-[#e68100] px-4 py-0.5 text-lg rounded-3xl cursor-pointer"
           onClick={() => inputsValidation() && setGameStart(true)}
         >
           Start
