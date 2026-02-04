@@ -18,8 +18,8 @@ const Board = ({ players, setGameStart }) => {
 
       if (a && a === b && b === c) {
         return a === player1Symbol
-          ? { name: player1Name, symbol: player1Symbol }
-          : { name: player2Name, symbol: player2Symbol };
+          ? { name: player1Name, combo: combination }
+          : { name: player2Name, combo: combination };
       }
     }
 
@@ -47,6 +47,26 @@ const Board = ({ players, setGameStart }) => {
     });
   };
 
+  const highlightWinningCombo = (rowIndex, colIndex) => {
+    if (winner.name === "draw") return false;
+
+    for (const square of winner.combo) {
+      if (square.row === rowIndex && square.col === colIndex) return true;
+    }
+  };
+
+  // if (winner) {
+  //   const cc = [
+  //     { row: 0, col: 1 },
+  //     { row: 1, col: 1 },
+  //     { row: 2, col: 2 },
+  //   ];
+
+  //   for (const bbz of cc) {
+  //     highlightWinningCombo(bbz.row, bbz.col);
+  //   }
+  // }
+
   return (
     <div className="flex flex-col bg-[#AF47D2] p-3 rounded-md ">
       <ul className="flex justify-around pb-2">
@@ -71,7 +91,7 @@ const Board = ({ players, setGameStart }) => {
         {gameBoard.map((row, rowIndex) =>
           row.map((col, colIndex) => (
             <button
-              className={`${winner && col === winner.symbol ? "bg-[#1fb91f]" : col ? "bg-[#e68100]" : "bg-[#ff8f00]"} cursor-pointer font-bold text-5xl rounded-md`}
+              className={`${winner && highlightWinningCombo(rowIndex, colIndex) ? "bg-[#1fb91f]" : col ? "bg-[#e68100]" : "bg-[#ff8f00]"} cursor-pointer font-bold text-5xl rounded-md`}
               key={`${rowIndex}-${colIndex}`}
               onClick={() => buttonHandler(rowIndex, colIndex)}
             >
@@ -83,19 +103,19 @@ const Board = ({ players, setGameStart }) => {
 
       {winner && (
         <div className="absolute bg-gray-900/90 inset-0 flex justify-center items-center">
-          <div className="bg-[#AF47D2] text-center flex-wrap w-102 p-6 rounded-md">
+          <div className="bg-[#bf6cdb] text-center flex-wrap w-102 p-6 rounded-md">
             <h2 className="font-bold pb-3 text-3xl">
               {winner.name === "draw" ? "Draw" : "Winner is " + winner.name}
             </h2>
             <div className="flex justify-around w-full">
               <button
-                className="bg-[#FFDB00] hover:bg-[#e6c500] px-2 rounded-xl text-lg cursor-pointer"
+                className="bg-[#ffe64d] hover:bg-[#e6c500] px-2 rounded-xl text-lg cursor-pointer"
                 onClick={() => setGameBoard(initialGameBoard)}
               >
                 Play again
               </button>
               <button
-                className="bg-[#FFDB00] hover:bg-[#e6c500] px-2 rounded-xl text-lg cursor-pointer"
+                className="bg-[#ffe64d] hover:bg-[#e6c500] px-2 rounded-xl text-lg cursor-pointer"
                 onClick={() => setGameStart(false)}
               >
                 Customize
