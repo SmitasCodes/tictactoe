@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
   const [isEditing, setIsEditing] = useState(null);
   const [error, setError] = useState(null);
+  const inputName1Ref = useRef(null);
+  const inputName2Ref = useRef(null);
+
+  useEffect(() => {
+    if (isEditing === "player1") inputName1Ref.current.focus();
+    if (isEditing === "player2") inputName2Ref.current.focus();
+  }, [isEditing]);
 
   const updatePlayer = (type, playerId, value) => {
     setPlayers((prev) => {
@@ -49,7 +56,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
     } else {
       // Triggers on each edit click, checks if user name is valid before clicking another player to edit. If not valid, reverts name to original
       Object.entries(players).forEach((player) => {
-        if (player[1].name.length <= 3 || player[1].name.length >= 20) {
+        if (player[1].name.length < 3 || player[1].name.length > 20) {
           const playerString =
             player[0] === "player1" ? "Player 1" : "Player 2";
           updatePlayer("name", player[0], playerString);
@@ -72,6 +79,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
         <input
           type="text"
           value={players.player1.name}
+          ref={inputName1Ref}
           disabled={isEditing !== "player1"}
           onChange={(e) => updatePlayer("name", "player1", e.target.value)}
           className={`rounded-md border-2 border-transparent outline-none px-0.5 
@@ -98,6 +106,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
         <input
           type="text"
           value={players.player2.name}
+          ref={inputName2Ref}
           disabled={isEditing !== "player2"}
           className={`rounded-md border-2 border-transparent outline-none px-0.5 
               ${isEditing === "player2" && "border-[#cc7200]!"}
