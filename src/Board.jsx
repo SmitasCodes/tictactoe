@@ -35,15 +35,14 @@ const Board = ({ players, setGameStart }) => {
 
   useEffect(() => {
     if (winner && winner.name != "draw") {
-      console.log("timer");
       const timer = setTimeout(() => {
         setShowModal(true);
-      }, 2600);
+      }, 2800);
 
       return () => clearTimeout(timer);
     }
 
-    if (winner&&winner.name === "draw") {
+    if (winner && winner.name === "draw") {
       setShowModal(true);
     }
   }, [winner]);
@@ -75,18 +74,6 @@ const Board = ({ players, setGameStart }) => {
     return ++squareNumber;
   };
 
-  const animationDelay = (rowIndex, colIndex) => {
-    if (highlightWinningCombo(rowIndex, colIndex) === 1) {
-      return "bg-[#1fb91f] animate-[pulse_1s_ease-in-out_200ms_1]";
-    }
-    if (highlightWinningCombo(rowIndex, colIndex) === 2) {
-      return "bg-[#1fb91f] animate-[pulse_1s_ease-in-out_800ms_1]";
-    }
-    if (highlightWinningCombo(rowIndex, colIndex) === 3) {
-      return "bg-[#1fb91f] animate-[pulse_1s_ease-in-out_1400ms_1]";
-    }
-  };
-
   return (
     <div className="flex flex-col bg-[#AF47D2] p-3 rounded-md ">
       <ul className="flex justify-around pb-2">
@@ -111,7 +98,13 @@ const Board = ({ players, setGameStart }) => {
         {gameBoard.map((row, rowIndex) =>
           row.map((col, colIndex) => (
             <button
-              className={`${winner && highlightWinningCombo(rowIndex, colIndex) ? animationDelay(rowIndex, colIndex) : col ? "bg-[#e68100]" : "bg-[#ff8f00]"} cursor-pointer font-bold text-5xl rounded-md`}
+              className={`${winner && highlightWinningCombo(rowIndex, colIndex) ? "bg-[#1fb91f] animate-pulse" : col ? "bg-[#e68100]" : "bg-[#ff8f00]"} cursor-pointer font-bold text-5xl rounded-md`}
+              style={{
+                animationDelay:
+                  highlightWinningCombo(rowIndex, colIndex) * 400 + "ms",
+                animationIterationCount: 1,
+                animationFillMode: "forwards",
+              }}
               key={`${rowIndex}-${colIndex}`}
               onClick={() => buttonHandler(rowIndex, colIndex)}
             >
