@@ -1,16 +1,49 @@
-# React + Vite
+# Tic Tac Toe — React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tic Tac Toe game built with **React** and **Tailwind CSS**.  
+Supports custom player names, dynamic turn highlighting, win animations, and draw detection.
+This project was built to practice state management, derived state, and UI feedback in React.
 
-Currently, two official plugins are available:
+Live demo: https://tictactoe-ten-lime.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🎮 Classic 3×3 Tic Tac Toe gameplay
+- ✏️ Editable player names with validation
+- 🔁 Switchable player symbols (X / O)
+- 🎯 Active player highlighting
+- 🏆 Automatic win detection
+- 🤝 Draw detection
+- ✨ Winning combination animation
+- 🔄 Restart game or re-customize players
+- 📱 Responsive design
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- **React**
+- **Tailwind CSS**
+- **Vercel** (deployment)
+
+---
+
+## How It Works
+
+- The game board is stored as a 2D array.
+- The active player is derived from the number of moves.
+- The winner is computed using predefined winning combinations.
+- UI updates automatically based on state changes.
+
+---
+
+## Getting Started Locally
+
+```bash
+
+git clone https://github.com/SmitasCodes/tictactoe/
+cd tactactoe
+npm install
+npm run dev
