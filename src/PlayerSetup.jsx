@@ -69,9 +69,14 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
     setError(null);
   };
 
+  const handleKeyDown = (e, player) => {
+    console.log("sd");
+    if (e.key === "Enter") handleEdit(player);
+  };
+
   return (
     <div className="bg-[#AF47D2] px-6 py-3 rounded-sm">
-      <h2 className="text-2xl font-bold text-center pb-4">
+      <h2 className="sm:text-2xl md:text-1xl text-xl font-bold text-center pb-4">
         Welcome to tic tac toe game!
       </h2>
 
@@ -85,6 +90,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
           className={`rounded-md border-2 border-transparent outline-none px-0.5 
               ${isEditing === "player1" && "border-[#cc7200]!"}
             `}
+          onKeyDown={(e) => handleKeyDown(e, "player1")}
         />
         <button
           className="bg-[#d17a07] hover:bg-[#bc6e06] py-0.5 px-2 rounded-lg cursor-pointer"
@@ -112,6 +118,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
               ${isEditing === "player2" && "border-[#cc7200]!"}
              `}
           onChange={(e) => updatePlayer("name", "player2", e.target.value)}
+          onKeyDown={(e) => handleKeyDown(e, "player2")}
         />
         <button
           className="bg-[#d17a07] hover:bg-[#bc6e06] py-0.5 px-2 rounded-lg  cursor-pointer"
@@ -135,7 +142,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
 
       <div className="flex justify-center pt-2">
         <button
-          className="bg-[#ff8f00] hover:bg-[#e68100] px-4 py-0.5 text-lg rounded-3xl cursor-pointer"
+          className="bg-[#ff8f00] hover:bg-[#e68100] px-4 py-0.5 text-md sm:text-lg rounded-3xl cursor-pointer"
           onClick={() => inputsValidation() && setGameStart(true)}
         >
           Start
