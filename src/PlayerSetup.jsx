@@ -77,7 +77,7 @@ const PlayerSetup = ({ players, setPlayers, setGameStart }) => {
   return (
     <div className="bg-[#AF47D2] px-6 py-3 rounded-sm">
       <h2 className="sm:text-2xl md:text-1xl text-xl font-bold text-center pb-4">
-        Welcome to tic tac toe game!
+        Welcome to Tic-tac-toe game!
       </h2>
 
       <div className="flex justify-between pb-2">
